@@ -1,4 +1,6 @@
 
+from itertools import product
+import copy
 
 def fix_computer(initial_state: list) -> list:
     start = 0
@@ -19,19 +21,17 @@ def fix_computer(initial_state: list) -> list:
             )
         start += 4
         stop += 4
-        # print(f"start={start}, stop={stop}")
     return initial_state
 
 
 def find_noun_verb(initial_state: list) -> list:
-    for i in range(99):
-        for j in range(99):
-            input = [x for x in initial_state]
-            input[1] = i
-            input[2] = j
-            output = fix_computer(input)
-            if output[0] == 19690720:
-                return output[0], output[1], output[2], 100 * output[1] + output[2]
+    for noun, verb in product(range(100), range(100)):
+        input = [x for x in initial_state]
+        input[1] = noun
+        input[2] = verb
+        output = fix_computer(input)
+        if output[0] == 19690720:
+            return output[0], output[1], output[2], 100 * output[1] + output[2]
 
 if __name__ == "__main__":
     # with open("puzzle_input") as file:
