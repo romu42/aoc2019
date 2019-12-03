@@ -10,15 +10,14 @@
 
 
 def closest_intersect(path1: list, path2: list) -> int:
-    positions = [element for element in path1 if element in path2]
-    positions = [element for element in positions if element != (0,0)]
+    common = set(path1) & set(path2)
+    positions = [element for element in common if element != (0, 0)]
     distances = []
 
     for x, y in positions:
         distances.append(abs(0 - x) + abs(0 - y))
         distances.sort()
     return distances[0]
-
 
 
 def get_wire_path(moves: list) -> list:
@@ -68,11 +67,8 @@ if __name__ == '__main__':
         moves = [line.rstrip() for line in file]
         wire1_path = get_wire_path(moves[0].split(','))
         wire2_path = get_wire_path(moves[1].split(','))
-        # print(wire1_path)
-        # print(wire2_path)
-        common = [element for element in wire1_path if element in wire2_path]
-        print(common)
-        print(sorted([wire1_path.index(item) + wire2_path.index(item) for item in common])[1])
+        print(set(wire2_path) & set(wire1_path))
         print(closest_intersect(wire1_path, wire2_path))
-
+        common = set(wire2_path) & set(wire1_path)
+        print(sorted([wire1_path.index(item) + wire2_path.index(item) for item in common])[1])
 
