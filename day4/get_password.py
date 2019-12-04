@@ -1,3 +1,5 @@
+from collections import deque
+
 
 def get_password_count(input: str) -> int:
     count = 0
@@ -5,9 +7,9 @@ def get_password_count(input: str) -> int:
     print(start, stop)
     for password in range(int(start), int(stop)):
         if check_increase(str(password)) and check_adjacent(str(password)):
-            # print(password)
             count += 1
     return count
+
 
 def get_password_count_limited(input: str) -> int:
     count = 0
@@ -15,10 +17,8 @@ def get_password_count_limited(input: str) -> int:
     print(start, stop)
     for password in range(int(start), int(stop)):
         if check_increase(str(password)) and check_adjacent_limited(str(password)):
-            print(password)
             count += 1
     return count
-
 
 
 def check_length(password: str) -> bool:
@@ -37,10 +37,11 @@ def check_adjacent(password: str) -> bool:
 
 
 def check_adjacent_limited(password: str) -> bool:
-    for i in range(len(password)-1):
-        if password[i] == password[i + 1] and password[i + 1]:
-            return True
-    return False
+        d = deque(password)
+        for item in set(password):
+            if d.count(item) == 2:
+                return True
+        return False
 
 
 def check_increase(password: str) -> bool:
