@@ -26,7 +26,7 @@ def computer(memory: list) -> (list, int):
             )
         elif opcode == 4:
             memory, position = opcode_4(
-                memory, position
+                memory, position, param_mode1
             )
         elif opcode == 5:
             memory, position = opcode_5(
@@ -97,18 +97,21 @@ def opcode_3(
     """
     opcode 3 stores input to address in parameter ( next memory position ) and moves position forward 2
     """
-    # memory[memory[position + 1]] = 5
-    memory[memory[position + 1]] = 8
+    memory[memory[position + 1]] = 5
+    # memory[memory[position + 1]] = 9
     return memory, position + 2
 
 
 def opcode_4(
-    memory: list, position: int
+    memory: list, position: int, param_mode1: int,
 ) -> (list, int):
     """
     opcode 4 outputs value of parameter ( next memory position ) and moves memory pointer forward 2
     """
-    print(memory[memory[position + 1]])
+    if param_mode1 == 0:
+        print(memory[memory[position + 1]])
+    elif param_mode1 == 1:
+        print(memory[position + 1])
     return memory, position + 2
 
 def opcode_5(
@@ -170,15 +173,18 @@ def opcode_7(
         param2 = memory[memory[position + 2]]
     else:
         param2 = memory[position + 2]
-    if param_mode3 == 0:
-        param3 = memory[memory[position + 2]]
-    else:
-        param3 = memory[position + 2]
 
-    if param1 < param2:
-        param3 = 1
+    if param_mode3 == 0:
+        if param1 < param2:
+            memory[memory[position + 3]] = 1
+        else:
+            memory[memory[position + 3]] = 0
+
     else:
-        param3 = 0
+        if param1 < param2:
+            memory[position + 3] = 1
+        else:
+            memory[position + 3] = 0
 
     return memory, position + 4
 
@@ -198,15 +204,18 @@ def opcode_8(
         param2 = memory[memory[position + 2]]
     else:
         param2 = memory[position + 2]
-    if param_mode3 == 0:
-        param3 = memory[memory[position + 2]]
-    else:
-        param3 = memory[position + 2]
 
-    if param1 == param2:
-        param3 = 1
+    if param_mode3 == 0:
+        if param1 == param2:
+            memory[memory[position + 3]] = 1
+        else:
+            memory[memory[position + 3]] = 0
+
     else:
-        param3 = 0
+        if param1 == param2:
+            memory[position + 3] = 1
+        else:
+            memory[position + 3] = 0
 
     return memory, position + 4
 
@@ -259,7 +268,6 @@ def parse_instructions(instructions: int) -> tuple:
         return opcode, param_mode1, param_mode2, param_mode3
 
 if __name__ == "__main__":
-    # with open("puzzle_input") as file:
-    #     data = [int(v) for v in file.read().split(',')]
-    #     print(computer(data))
-    print(computer([3,3,1107,-1,8,3,4,3,99]))
+    with open("puzzle_input") as file:
+        data = [int(v) for v in file.read().split(',')]
+        computer(data)
