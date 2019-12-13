@@ -42,7 +42,6 @@ def create_directory(pathname):
 
 orbits = defaultdict(list)
 for item in my_list:
-    # print(item[0], item[1])
     orbits[item[0]].append(item[1])
 print(orbits)
 
@@ -50,9 +49,6 @@ print(orbits)
 current_body = "COM"
 next_body = orbits[current_body]
 orbit_count = ['COM']
-# create temp dir to workin
-# dir = TemporaryDirectory()
-# define the name of the directory to be created
 path = current_body
 create_directory(path)
 
@@ -67,10 +63,33 @@ while next_body:
     else:
         path = next_body[0]
         create_directory(path)
-
-
-   orbit_count.append(next_body[0])
-   current_body = next_body[0]
-   next_body = orbits[current_body]
-   os.chdir(path)
+    orbit_count.append(next_body[0])
+    current_body = next_body[0]
+    next_body = orbits[current_body]
+    os.chdir(path)
 print(orbit_count)
+
+def recursive_dir_create(parent, children):
+    for parent, children:
+            if children:
+                for child in children
+
+
+def count_dirs_and_files(directory="."):
+    """Count the amount of of directories and files in passed in "directory" arg.
+       Return a tuple of (number_of_directories, number_of_files)
+    """
+    file_count = 0
+    dir_count = -1
+
+    def recursive_walk(dir, dir_count, file_count):
+        for root, dirs, files in os.walk(dir):
+            if dirs:
+                for dir in dirs:
+                    recursive_walk(dir, dir_count, file_count)
+            dir_count += 1
+            for file in files:
+                file_count += 1
+        return dir_count, file_count
+
+    return recursive_walk(directory, dir_count, file_count)
