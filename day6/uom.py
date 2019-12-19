@@ -39,7 +39,7 @@ def get_next_body(current_body, orbit_count):
         if body:
             for bod in body:
                 print(body)
-                get_next_body(bod, orbit_count)
+                orbit_count = get_next_body(bod, orbit_count)
     return orbit_count
 
 print(get_next_body('COM', orbit_count))
