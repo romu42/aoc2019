@@ -1,16 +1,5 @@
 from collections import defaultdict
 
-
-if __name__ == "__main__":
-    with open("test_input") as file:
-        # data = file.read()
-        new_list = []
-        data = file.read().split("\n")
-        # print(data)
-        new_list = [item.split(")") for item in data]
-        # print(new_list)
-
-
 my_list = [
     ["B", "C"],
     ["C", "D"],
@@ -52,3 +41,13 @@ orbitals = get_child(current_body, orbitals)
 #     current_body = next_body[0]
 #     next_body = orbits[current_body]
 # print(orbit_count)
+
+if __name__ == "__main__":
+    with open("test_input") as file:
+        # data = file.read()
+        new_list = []
+        data = file.read().split("\n")
+        # print(data)
+        new_list = [item.split(")") for item in data]
+        # print(new_list)
+

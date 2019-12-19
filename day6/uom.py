@@ -2,17 +2,6 @@
 # by rog
 
 from collections import defaultdict
-from tempfile import TemporaryDirectory
-import os
-
-if __name__ == "__main__":
-    with open("test_input") as file:
-        # data = file.read()
-        new_list = []
-        data = file.read().split("\n")
-        # print(data)
-        new_list = [item.split(")") for item in data]
-        # print(new_list)
 
 
 my_list = [
@@ -28,14 +17,6 @@ my_list = [
     ["K", "L"],
     ["COM", "B"],
 ]
-# create a direcotry
-def create_directory(pathname):
-    try:
-        os.makedirs(path)
-    except OSError:
-        print("Creation of the directory %s failed" % path)
-    else:
-        print("Successfully created the directory %s" % path)
 
 # use a defaultdict to create dict of lists where each key has the values of the
 # next orbiting bodies
@@ -47,49 +28,29 @@ print(orbits)
 
 # start at com and get next body
 current_body = "COM"
-next_body = orbits[current_body]
-orbit_count = ['COM']
-path = current_body
-create_directory(path)
+total_orbit_count = 0
 
-# go from body to body and build the tree
-os.chdir(path)
-while next_body:
-    print(f"{current_body} -> {next_body}")
-    if len(next_body) > 1:
-        for i in range(len(next_body)):
-            path = next_body[i]
-            create_directory(path)
-    else:
-        path = next_body[0]
-        create_directory(path)
-    orbit_count.append(next_body[0])
-    current_body = next_body[0]
-    next_body = orbits[current_body]
-    os.chdir(path)
-print(orbit_count)
-
-def recursive_dir_create(parent, children):
-    for parent, children:
-            if children:
-                for child in children
+def get_child(current_body, orbit_count):
+    # print({current_body}, orbits[current_body])
+    global total_orbit_count
+    for bodies in orbits[current_body]:
+        if bodies:
+            for body in bodies:
+                orbit_count += 1
+                total_orbit_count = total_orbit_count + orbit_count
+                print(f"{body}")
+                print(f"{orbit_count}")
+                get_child(body, orbit_count)
+    return orbit_count, total_orbit_count
 
 
-def count_dirs_and_files(directory="."):
-    """Count the amount of of directories and files in passed in "directory" arg.
-       Return a tuple of (number_of_directories, number_of_files)
-    """
-    file_count = 0
-    dir_count = -1
+print(get_child('COM', 0))
 
-    def recursive_walk(dir, dir_count, file_count):
-        for root, dirs, files in os.walk(dir):
-            if dirs:
-                for dir in dirs:
-                    recursive_walk(dir, dir_count, file_count)
-            dir_count += 1
-            for file in files:
-                file_count += 1
-        return dir_count, file_count
-
-    return recursive_walk(directory, dir_count, file_count)
+if __name__ == "__main__":
+    with open("test_input") as file:
+        # data = file.read()
+        new_list = []
+        data = file.read().split("\n")
+        # print(data)
+        new_list = [item.split(")") for item in data]
+        # print(new_list)
