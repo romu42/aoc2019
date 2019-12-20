@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 # by rog
 
-
-#!/usr/bin/env python3
-# by rog
-
 from collections import defaultdict
 
 
@@ -30,25 +26,11 @@ for item in my_list:
     orbits[item[0]].append(item[1])
 print(orbits)
 
-# start at com and get next body
-current_body = "COM"
-total_orbit_count = 0
+current = 'COM'
+distance = 1
 
-def get_child(current_body, orbit_count):
-    # print({current_body}, orbits[current_body])
-    global total_orbit_count
-    for bodies in orbits[current_body]:
-        if bodies:
-            for body in bodies:
-                orbit_count += 1
-                total_orbit_count = total_orbit_count + orbit_count
-                print(f"{body}")
-                print(f"{orbit_count}")
-                get_child(body, orbit_count)
-    return orbit_count, total_orbit_count
-
-
-print(get_child('COM', 0))
+def set_distance(current, distance):
+    orbits[currentdd
 
 if __name__ == "__main__":
     with open("test_input") as file:

@@ -29,22 +29,25 @@ print(orbits)
 # start at com and get next body
 current_body = "COM"
 total_orbit_count = 0
+distance_from_com = ["COM"]
+
 
 def get_child(current_body, orbit_count):
-    # print({current_body}, orbits[current_body])
     global total_orbit_count
+    global distance_from_com
     for bodies in orbits[current_body]:
+        orbit_count += 1
         if bodies:
             for body in bodies:
-                orbit_count += 1
-                total_orbit_count = total_orbit_count + orbit_count
-                print(f"{body}")
-                print(f"{orbit_count}")
+                distance_from_com.append(body)
+                print(
+                    f"body={body}, orbit count={orbit_count}, total={total_orbit_count}"
+                )
                 get_child(body, orbit_count)
-    return orbit_count, total_orbit_count
+            total_orbit_count = total_orbit_count + orbit_count
+    return orbit_count, total_orbit_count, distance_from_com
 
-
-print(get_child('COM', 0))
+print(get_child("COM", 0))
 
 if __name__ == "__main__":
     with open("test_input") as file:
