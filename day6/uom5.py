@@ -27,10 +27,31 @@ for item in my_list:
 print(orbits)
 
 current = 'COM'
-distance = 1
+distance = 0
+orbit_lst = [['COM']]
+
 
 def set_distance(current, distance):
-    orbits[currentdd
+    orbit_lst.append([orbits[current], distance])
+    print(orbit_lst)
+
+
+def add_orbit_lst(current):
+    tmp_lst = []
+    for parent in current:
+        for orbit in orbits[current]:
+            tmp_lst.append(orbit)
+        orbit_lst.append(tmp_lst)
+
+# set_distance(current, distance)
+add_orbit_lst('COM')
+add_orbit_lst('B')
+for orb in orbit_lst[-1]:
+    print(orb)
+
+print(orbit_lst)
+print(len(orbit_lst[2]))
+
 
 if __name__ == "__main__":
     with open("test_input") as file:
