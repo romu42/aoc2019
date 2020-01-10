@@ -32,16 +32,6 @@ orbitals.append(current_body)
 orbitals = get_child(current_body, orbitals)
 
 
-# while next_body:
-#     print(f"{current_body} -> {next_body}")
-#     if len(next_body) > 1:
-#         for i in range(len(next_body)):
-#     else:
-#     orbit_count.append(next_body[0])
-#     current_body = next_body[0]
-#     next_body = orbits[current_body]
-# print(orbit_count)
-
 if __name__ == "__main__":
     with open("test_input") as file:
         # data = file.read()
